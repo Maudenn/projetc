@@ -62,7 +62,12 @@ public class Parser {
 	}
 	
 	public static List<String> creerCommandes (boolean[][] tab){
-		
-		return null;
+		List<String> c = new ArrayList<>();
+		for(int i=0; i<tab.length; i++){
+			for(int j=0; j<tab[0].length; j++){
+				if(tab[i][j]) c.add("PAINTSQ "+i+" "+j+" "+ " 0");
+			}
+		}
+		return c;
 	}
 }
