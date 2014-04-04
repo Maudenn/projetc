@@ -63,11 +63,47 @@ public class Parser {
 	
 	public static List<String> creerCommandes (boolean[][] tab){
 		List<String> c = new ArrayList<>();
-		for(int i=0; i<tab.length; i++){
+		for(int i=0; i<tab.length-tab.length%5; i+=5){
+			for(int j=0; j<tab[0].length-tab[0].length%5; j+=5){
+				// nb de #
+				int nb = 0;
+				for(int l=i; l<i+5; l++){
+					for(int m=j; m<j+5; m++){
+						if(tab[l][m]) nb++;
+					}
+				}
+				if(nb>12){
+					// carré
+					c.add("PAINTSQ "+i+2+" "+j+2+" "+ "2");
+					// effacer
+					for(int l=i; l<i+5; l++){
+						for(int m=j; m<j+5; m++){
+							if(!tab[l][m]) c.add("ERASECELL "+l+" "+m);
+						}
+					}
+				}
+				else{
+					for(int l=i; l<i+5; l++){
+						for(int m=j; m<j+5; m++){
+							if(tab[l][m]) c.add("PAINTSQ "+l+" "+m+" "+ "0");
+						}
+					}
+				}
+			}
+		}
+		
+		for(int i=tab.length-tab.length%5; i<tab.length; i++){
 			for(int j=0; j<tab[0].length; j++){
+				if(tab[i][j]) c.add("PAINTSQ "+i+" "+j+" "+ " 0");
+			}
+		}
+		
+		for(int i=0; i<tab.length; i++){
+			for(int j=tab[0].length-tab[0].length%5; j<tab[0].length; j++){
 				if(tab[i][j]) c.add("PAINTSQ "+i+" "+j+" "+ " 0");
 			}
 		}
 		return c;
 	}
+	
 }
