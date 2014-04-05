@@ -70,9 +70,9 @@ public class Ville {
 		}
 	}
 	
-	public static double cout(List<Rue> rues){
+	public static double cout(Chemin rues){
 		double c = 0;
-		for(Rue r : rues) c += cout(r);
+		for(Rue r : rues.getRues()) c += cout(r);
 		return c;
 	}
 
