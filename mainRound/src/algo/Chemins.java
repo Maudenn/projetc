@@ -29,13 +29,18 @@ public class Chemins {
 				List<Chemin> cheminsRec = chemins(v, r.getFin(), n-1);
 				// on ajoute la rue r à tous les chemins obtenus
 				for(Chemin c : cheminsRec){
-					c.addRue(0, r);
+					c.addRueDebut(r);
 				}
 				// on ajoute les chemins au résultat
 				l.addAll(cheminsRec);
 			}
 			return l;
 		}
+	}
+	
+	public static List<Chemin> cheminsAmeliore(Ville v, Intersection intersection, int n){
+		
+		return null;
 	}
 	
 	// retourne une solution pour le problème posé

@@ -3,9 +3,10 @@ package instances;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Chemin {
+public class Chemin{
 
 	List<Rue> r = new ArrayList<>();
+	double cout = 0;
 	
 	public List<Rue> getRues(){
 		return r;
@@ -15,12 +16,8 @@ public class Chemin {
 		return r.get(i);
 	}
 	
-	public void addRue(Rue rue){
-		r.add(rue);
-	}
-	
-	public void addRue(int i, Rue rue){
-		r.add(i, rue);
+	public void addRueDebut(Rue rue){
+		r.add(0, rue);
 	}
 
 	public int nb() {
@@ -31,6 +28,4 @@ public class Chemin {
 	public String toString() {
 		return "Chemin [r=" + r + "]";
 	}
-	
-	
 }
