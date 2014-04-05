@@ -17,7 +17,7 @@ public class Chemin implements Comparable{
 	}
 	
 	public void addRueDebut(Rue rue){
-		cout += rue.getCout();
+		cout += Ville.cout(rue);
 		r.add(0, rue);
 	}
 

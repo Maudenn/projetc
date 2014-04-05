@@ -26,7 +26,7 @@ public class Chemins {
 		else{
 			// pour toutes les rues accessibles depuis intersection
 			for(Rue r : intersection.getRues()){
-				if(r.getFin().equals(prec)) break;
+				if(r.getFin().equals(prec)) continue;
 				// on appelle recursivement
 				List<Chemin> cheminsRec = chemins(v, r.getFin(), r.getDebut(),  n-1);
 				// on ajoute la rue r à tous les chemins obtenus
