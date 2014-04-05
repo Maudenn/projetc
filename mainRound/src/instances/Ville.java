@@ -66,7 +66,7 @@ public class Ville {
 		if (rue.estVisite){
 			return 0;
 		}else{
-			return rue.getLongueur() / rue.getDuree();
+			return rue.getCout();
 		}
 	}
 	

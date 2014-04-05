@@ -13,6 +13,7 @@ public class Rue {
 	int duree;
 	int longueur;
 	boolean estVisite = false;
+	double cout = -1;
 	
 	public Rue(Intersection debut, Intersection fin, int duree, int longueur) {
 		super();
@@ -20,6 +21,7 @@ public class Rue {
 		this.fin = fin;
 		this.duree = duree;
 		this.longueur = longueur;
+		cout = getLongueur() / getDuree();
 	}
 
 	public Intersection getDebut() {
@@ -48,6 +50,10 @@ public class Rue {
 
 	public int getLongueur() {
 		return longueur;
+	}
+	
+	public double getCout() {
+		return cout;
 	}
 
 	public void setLongueur(int longueur) {

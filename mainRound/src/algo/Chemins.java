@@ -38,24 +38,25 @@ public class Chemins {
 		}
 	}
 	
-	// retourne une solution
+	// retourne une solution pour le problème posé
 	public static List<List<Rue>> solution (Ville v){
 		List<List<Rue>> l = new ArrayList<>();
 		// pour chaque voiture
 		for(int i=0; i<v.getNbVehicules(); i++){
-			// on choisir le meilleur chemin
+			// on choisit le meilleur chemin
 			l.add(meilleurChemin(v));
 		}
 		
 		return l;
 	}
 	
+	// retourne le meilleur chemin à partir du début
 	public static List<Rue> meilleurChemin(Ville v){
 		List<Rue> l = new ArrayList<>();
 		int temps = 0;
 		Intersection inter = v.getIntersections().get(v.getNumIntersection());
 		while(temps < v.getTemps()){
-			List<Chemin> liste = chemins(v, inter, 10);
+			List<Chemin> liste = chemins(v, inter, 15);
 			// si pas de chemin
 			if(liste.size()==0) return l;
 			// choisir la meilleure rue
@@ -74,11 +75,13 @@ public class Chemins {
 		return l;
 	}
 	
+	// retourne la prochaine rue à chosir (première rue du meilleur chemin de llr)
 	public static Rue rueCoutMax(List<Chemin> llr){
 		double max = -1;
 		List<Integer> imax = new ArrayList<>();
 		for(int i=0; i<llr.size(); i++){
 			double coutChemin = Ville.cout(llr.get(i));
+			
 			// si un meilleur
 			if(coutChemin > max){
 				max = coutChemin;
@@ -90,6 +93,7 @@ public class Chemins {
 				imax.add(i);
 			}
 		}
+		// si plusieurs chemin au même coût, on en choisit un aléatoirement
 		int alea = r.nextInt(imax.size());
 		return llr.get(imax.get(alea)).getRue(0);
 	}
