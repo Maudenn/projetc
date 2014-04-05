@@ -6,6 +6,7 @@ import instances.Rue;
 import instances.Ville;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -13,8 +14,8 @@ public class Chemins {
 
 	public static Random r = new Random();
 	
-	// retourne tous les chemins de taille n depuis l'intersection
-	public static List<Chemin> chemins(Ville v, Intersection intersection, int n){
+	// retourne tous les chemins de taille n depuis l'intersection (triés)
+	public static List<Chemin> chemins(Ville v, Intersection intersection, Intersection prec, int n){
 		List<Chemin> l = new ArrayList<Chemin>();
 		// si fini
 		if(n == 0){
@@ -25,14 +26,16 @@ public class Chemins {
 		else{
 			// pour toutes les rues accessibles depuis intersection
 			for(Rue r : intersection.getRues()){
+				if(r.equals(prec)) break;
 				// on appelle recursivement
-				List<Chemin> cheminsRec = chemins(v, r.getFin(), n-1);
+				List<Chemin> cheminsRec = chemins(v, r.getFin(), r.getDebut(),  n-1);
 				// on ajoute la rue r à tous les chemins obtenus
 				for(Chemin c : cheminsRec){
 					c.addRueDebut(r);
 				}
 				// on ajoute les chemins au résultat
 				l.addAll(cheminsRec);
+				Collections.sort(l, Collections.reverseOrder());
 			}
 			return l;
 		}
@@ -61,11 +64,11 @@ public class Chemins {
 		int temps = 0;
 		Intersection inter = v.getIntersections().get(v.getNumIntersection());
 		while(temps < v.getTemps()){
-			List<Chemin> liste = chemins(v, inter, 15);
+			List<Chemin> liste = chemins(v, null,inter, 12);
 			// si pas de chemin
 			if(liste.size()==0) return l;
 			// choisir la meilleure rue
-			Rue r = rueCoutMax(liste);
+			Rue r = rueCoutMaxTrie(liste);
 			if(temps+r.getDuree()<=v.getTemps()){
 				// l'ajouter à la liste
 				l.add(r);
@@ -80,7 +83,7 @@ public class Chemins {
 		return l;
 	}
 	
-	// retourne la prochaine rue à chosir (première rue du meilleur chemin de llr)
+	// retourne la prochaine rue à chosir (première rue du meilleur chemin de llr) 
 	public static Rue rueCoutMax(List<Chemin> llr){
 		double max = -1;
 		List<Integer> imax = new ArrayList<>();
@@ -98,8 +101,20 @@ public class Chemins {
 				imax.add(i);
 			}
 		}
-		// si plusieurs chemin au même coût, on en choisit un aléatoirement
+		// si plusieurs chemin au même coût, on en choisit un aléatoirement 
 		int alea = r.nextInt(imax.size());
 		return llr.get(imax.get(alea)).getRue(0);
 	}
+	
+		// retourne la prochaine rue à chosir (première rue du meilleur chemin de llr) 
+		public static Rue rueCoutMaxTrie(List<Chemin> llr){
+			double max = llr.get(0).getCout();
+			int nbMax = 1;
+			while(llr.get(nbMax).getCout() == max){
+				nbMax++;
+			}
+			// si plusieurs chemin au même coût, on en choisit un aléatoirement 
+			int alea = r.nextInt(nbMax);
+			return llr.get(alea).getRue(0);
+		}
 }

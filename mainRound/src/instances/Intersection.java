@@ -48,6 +48,11 @@ public class Intersection {
 	public void setRues(ArrayList<Rue> rues) {
 		this.rues = rues;
 	}
+	@Override
+	public boolean equals(Object i){
+		if(i==null) return false;
+		return ((Intersection)i).numero == numero;
+	}
 
 	@Override
 	public String toString() {
