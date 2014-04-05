@@ -26,7 +26,7 @@ public class Chemins {
 		else{
 			// pour toutes les rues accessibles depuis intersection
 			for(Rue r : intersection.getRues()){
-				if(r.equals(prec)) break;
+				if(r.getFin().equals(prec)) break;
 				// on appelle recursivement
 				List<Chemin> cheminsRec = chemins(v, r.getFin(), r.getDebut(),  n-1);
 				// on ajoute la rue r à tous les chemins obtenus
@@ -64,7 +64,7 @@ public class Chemins {
 		int temps = 0;
 		Intersection inter = v.getIntersections().get(v.getNumIntersection());
 		while(temps < v.getTemps()){
-			List<Chemin> liste = chemins(v, null,inter, 12);
+			List<Chemin> liste = chemins(v, inter, null, 12);
 			// si pas de chemin
 			if(liste.size()==0) return l;
 			// choisir la meilleure rue
@@ -110,7 +110,7 @@ public class Chemins {
 		public static Rue rueCoutMaxTrie(List<Chemin> llr){
 			double max = llr.get(0).getCout();
 			int nbMax = 1;
-			while(llr.get(nbMax).getCout() == max){
+			while(llr.size()>=nbMax+1 && llr.get(nbMax).getCout() == max){
 				nbMax++;
 			}
 			// si plusieurs chemin au même coût, on en choisit un aléatoirement 
