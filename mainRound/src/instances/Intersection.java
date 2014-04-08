@@ -56,8 +56,21 @@ public class Intersection {
 
 	@Override
 	public String toString() {
-		return "Intersection [x=" + x + ", y=" + y + ", numero=" + numero
-				+ ", rues=" + rues + "]";
+		return "Intersection [numero=" + numero + ", rues=" + rues + "]";
+	}
+
+	public double getCout(int j) {
+		for(Rue r : rues){
+			if(r.getFin().getNumero() == j) return r.getCout();
+		}
+		return -1;
+	}
+
+	public Rue getRue(int a) {
+		for(Rue r : rues){
+			if(r.getFin().getNumero() == a) return r;
+		}
+		return null;
 	}
 	
 }

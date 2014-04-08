@@ -16,9 +16,18 @@ public class Chemin implements Comparable{
 		return r.get(i);
 	}
 	
+	public Rue getDerniere(){
+		return r.get(nb()-1);
+	}
+	
 	public void addRueDebut(Rue rue){
-		cout += Ville.cout(rue);
+		cout += rue.getCout();
 		r.add(0, rue);
+	}
+	
+	public void addRue(Rue rue){
+		cout += rue.getCout();
+		r.add(rue);
 	}
 
 	public int nb() {
@@ -31,7 +40,7 @@ public class Chemin implements Comparable{
 
 	@Override
 	public String toString() {
-		return "Chemin [r=" + r + "]";
+		return "Chemin(" + r + ", COUT="+getCout()+")";
 	}
 	
 	@Override

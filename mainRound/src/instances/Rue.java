@@ -4,8 +4,7 @@ public class Rue {
 
 	@Override
 	public String toString() {
-		return "Rue [debut=" + debut.getNumero() + ", fin=" + fin.getNumero() + ", duree=" + duree
-				+ ", longueur=" + longueur + "]";
+		return "Rue["+debut.getNumero()+","+fin.getNumero()+"]";
 	}
 
 	Intersection debut;
@@ -21,7 +20,7 @@ public class Rue {
 		this.fin = fin;
 		this.duree = duree;
 		this.longueur = longueur;
-		cout = getLongueur() / getDuree();
+		cout = (1.0*getLongueur()) / getDuree();
 	}
 
 	public Intersection getDebut() {
@@ -53,7 +52,8 @@ public class Rue {
 	}
 	
 	public double getCout() {
-		return cout;
+		if(!estVisite) return cout;
+		else return 0;
 	}
 
 	public void setLongueur(int longueur) {
